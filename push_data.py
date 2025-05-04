@@ -14,7 +14,7 @@ MONGO_DB_URL=os.getenv("MONGO_URI")
 
 ca=certifi.where()
 
-class NetworkDataExtract():
+class NetworkDataETL():
     def __init__(self):
         try:
             self.mongo_client = pymongo.MongoClient(MONGO_DB_URL)
@@ -45,7 +45,7 @@ if __name__=='__main__':
     file_path="Network_Data\phisingData.csv"
     database="Kaustubh"
     collection="NetworkData"
-    networkobj=NetworkDataExtract()
+    networkobj=NetworkDataETL()
     records=networkobj.csv_to_json_convertor(file_path=file_path)
     no_of_records=networkobj.insert_data_mongodb(records,database,collection)
     print(no_of_records)
