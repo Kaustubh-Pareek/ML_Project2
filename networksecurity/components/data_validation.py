@@ -68,7 +68,7 @@ class DataValidation:
         
     
     def initiate_data_validation(self) -> DataValidationArtifact:
-        try:  # ✅ Correct indentation
+        try: 
 
             train_file_path = self.data_ingestion_artifact.trained_file_path
             test_file_path = self.data_ingestion_artifact.test_file_path
