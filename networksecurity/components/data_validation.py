@@ -3,7 +3,7 @@ from networksecurity.entity.config_entity import DataValidationConfig
 from networksecurity.exception.exception import NetworkSecurityException 
 from networksecurity.logging.logger import logging 
 from networksecurity.constant.training_pipeline import SCHEMA_FILE_PATH
-from scipy.stats import ks_2samp
+from scipy.stats import ks_2samp # type: ignore
 import pandas as pd
 import os
 import sys
@@ -31,7 +31,7 @@ class DataValidation:
         try:
             number_of_columns=len(self.schema_config)
             logging.info(f"Required number of columns:{number_of_columns}")
-            logging.info(f"Data frame has columns:{len(dataframe.columns)}")
+            logging.info(f"Dataframe has columns:{len(dataframe.columns)}")
             if len(dataframe.columns)==number_of_columns:
                 return True
             return False
@@ -62,13 +62,14 @@ class DataValidation:
             dir_path = os.path.dirname(drift_report_file_path)
             os.makedirs(dir_path,exist_ok=True)
             write_yaml_file(file_path=drift_report_file_path,content=report)
+            return status
 
         except Exception as e:
             raise NetworkSecurityException(e,sys)
         
     
     def initiate_data_validation(self) -> DataValidationArtifact:
-        try: 
+        try:  
 
             train_file_path = self.data_ingestion_artifact.trained_file_path
             test_file_path = self.data_ingestion_artifact.test_file_path
@@ -122,5 +123,5 @@ class DataValidation:
             return data_validation_artifact  
 
         except Exception as e:
-            raise NetworkSecurityException(e, sys)  
+            raise NetworkSecurityException(e, sys)
 

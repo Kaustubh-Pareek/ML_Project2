@@ -8,9 +8,9 @@ import os
 import sys
 import numpy as np
 import pandas as pd
-import pymongo
+import pymongo # type: ignore
 from typing import List
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split # type: ignore
 from dotenv import load_dotenv
 load_dotenv()
 
