@@ -1,7 +1,7 @@
 import sys
 import os
 import numpy as np
-import pandas as pd
+import pandas as pd # type: ignore
 from sklearn.impute import KNNImputer # type: ignore
 from sklearn.pipeline import Pipeline # type: ignore
 from networksecurity.constant.training_pipeline import TARGET_COLUMN
@@ -14,8 +14,7 @@ from networksecurity.utils.main_utils.utils import save_numpy_array_data,save_ob
 
 
 class DataTransformation:
-    def __init__(self,data_validation_artifact:DataValidationArtifact,
-                 data_transformation_config:DataTransformationConfig):
+    def __init__(self,data_validation_artifact:DataValidationArtifact,data_transformation_config:DataTransformationConfig):
         try:
             self.data_validation_artifact:DataValidationArtifact=data_validation_artifact
             self.data_transformation_config:DataTransformationConfig=data_transformation_config
@@ -80,7 +79,7 @@ class DataTransformation:
             #save numpy array data
             save_numpy_array_data( self.data_transformation_config.transformed_train_file_path, array=train_arr, )
             save_numpy_array_data( self.data_transformation_config.transformed_test_file_path,array=test_arr,)
-            save_object( self.data_transformation_config.transformed_object_file_path, preprocessor_object,)
+            save_object(self.data_transformation_config.transformed_object_file_path, preprocessor_object,)
 
             #preparing artifacts
             data_transformation_artifact=DataTransformationArtifact(
@@ -91,7 +90,6 @@ class DataTransformation:
             return data_transformation_artifact
 
 
-            
         except Exception as e:
             raise NetworkSecurityException(e,sys)
 
