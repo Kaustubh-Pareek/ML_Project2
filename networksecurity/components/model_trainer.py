@@ -16,7 +16,10 @@ from sklearn.ensemble import ( # type: ignore
     GradientBoostingClassifier,
     RandomForestClassifier,
 )
-import mlflow
+import mlflow # type: ignore
+import dagshub
+
+dagshub.init(repo_owner='Kaustubh-Pareek', repo_name='ML_Project2', mlflow=True)
 
 
 class ModelTrainer:
@@ -37,7 +40,7 @@ class ModelTrainer:
             mlflow.log_metric("f1_score",f1_score)
             mlflow.log_metric("precision",precision)
             mlflow.log_metric("recall_score",recall)
-            mlflow.sklearn.log_model("model", best_model)
+            mlflow.sklearn.log_model(best_model, "model")
 
     def train_model(self,X_train,y_train,x_test,y_test):
         models = {
@@ -106,6 +109,7 @@ class ModelTrainer:
         network_model=NetworkModel(preprocessor=preprocessor,model=best_model)
 
         save_object(self.model_trainer_config.trained_model_file_path,obj=network_model)
+        save_object("final_model/model.pkl", best_model)
         
 
         ## model trainer artifact
